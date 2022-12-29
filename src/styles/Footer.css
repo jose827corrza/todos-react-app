@@ -1,0 +1,17 @@
+.Footer-text{
+    color: white;
+    font-size: larger;
+    padding: 1rem;
+}
+
+.Footer {
+    height: 50px;
+    width: 100%;
+    /* background-color: aqua; */
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    display: flex;
+    /* justify-content: space-between; */
+    padding: 0 6rem;
+}

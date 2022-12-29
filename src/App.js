@@ -11,31 +11,30 @@ import { ToDoItem } from '../src/components/ToDoItem'
 import { ToDoContext } from './ToDoContext'
 import { Modal } from './components/Modal';
 import { ToDoForm } from './components/ToDoForm';
+import { ToDosEmpty } from './pages/ToDosEmpty';
+import { ToDosError } from './pages/ToDosError';
+import { ToDosLoading } from './pages/ToDosLoading';
+import { Footer } from './components/Footer'
 
 
 
 function App() {
   const { loading,
     error,
-    completedTodos,
-    totalTodos,
     completeToDo,
     deleteToDo,
-    setSearchValue,
     searchedToDos,
-    searchValue,
-    openModal,
-    setOpenModal, } = useContext(ToDoContext);
+    openModal, } = useContext(ToDoContext);
   return (
       <React.Fragment>
       <ToDoCounter />
       <ToDoSearch />
           <ToDoList>
-          {error && <p>Desespérate, hubo un error...</p>}
+          {error && <ToDosError error={error} />}
             {/* // Mostramos un mensaje de cargando, cuando la aplicación está cargando lo sdatos */}
-            {loading && <p>Estamos cargando, no desesperes...</p>}
+            {loading && <ToDosLoading />}
             {/* // Si terminó de cargar y no existen TODOs, se muestra un mensaje para crear el primer TODO */}
-            {(!loading && !searchedToDos.length) && <p>¡Crea tu primer TODO!</p>}
+            {(!loading && !searchedToDos.length) && <ToDosEmpty />}
             {searchedToDos.map(todo => (
               <ToDoItem 
                 key={todo.text} 
@@ -49,8 +48,10 @@ function App() {
                 <ToDoForm />
               </Modal>
             )}
-          </ToDoList>     
+          </ToDoList>  
+          <Footer />   
       <CreateToDoButton />
+      
     </React.Fragment>
     // IMPORTANTISIMO envolver a todo los componente que vayan a consumir envolverlos en el producer, por amor a Odin
     // <ToDoProvider>
