@@ -30,6 +30,11 @@ function App() {
       <ToDoCounter />
       <ToDoSearch />
           <ToDoList>
+            {/* De aca para abajo es composicion de componentes bien aplicada, app puede compartir
+            el estado directamente con sus comp nietos. Si los llama el mismo, para esto
+            el padre debe recibir ese prop puntual llamado children, para
+            que lo que esta siendo llamado por el pueda recibir de quien engendra 
+            a en este caso al padre */}
           {error && <ToDosError error={error} />}
             {/* // Mostramos un mensaje de cargando, cuando la aplicación está cargando lo sdatos */}
             {loading && <ToDosLoading />}
