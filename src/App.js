@@ -3,6 +3,7 @@ import './App.css';
 
 import React, { useContext } from "react";
 
+import { ToDoHeader } from '../src/components/ToDoHeader'
 import { ToDoSearch } from '../src/components/ToDoSearch'
 import { ToDoCounter } from '../src/components/ToDoCounter'
 import { ToDoList } from '../src/components/ToDoList'
@@ -14,7 +15,8 @@ import { ToDoForm } from './components/ToDoForm';
 import { ToDosEmpty } from './pages/ToDosEmpty';
 import { ToDosError } from './pages/ToDosError';
 import { ToDosLoading } from './pages/ToDosLoading';
-import { Footer } from './components/Footer'
+// import { Footer } from './components/Footer'
+import { ChangeAlertWithStorageListener } from './components/ChangeAlert'
 
 
 
@@ -24,39 +26,80 @@ function App() {
     completeToDo,
     deleteToDo,
     searchedToDos,
-    openModal, } = useContext(ToDoContext);
+    openModal,
+    searchValue,
+    setSearchValue,
+    totalTodos,
+    syncronizeTodos,
+    completedTodos } = useContext(ToDoContext);
   return (
       <React.Fragment>
-      <ToDoCounter />
-      <ToDoSearch />
-          <ToDoList>
+      <ToDoHeader
+        loading={loading}
+      >
+        <ToDoCounter 
+          totalTodos={totalTodos} 
+          completedTodos={completedTodos} 
+          // loading={loading} 
+          />
+        <ToDoSearch 
+          searchValue={searchValue} 
+          setSearchValue={setSearchValue} 
+          // loading={loading}
+          />
+      </ToDoHeader>
+          <ToDoList
+            error={error}
+            loading={loading}
+            searchText={searchValue}
+            searchedTodos={searchedToDos}
+            onError={() => <ToDosError />}
+            onLoading={() => <ToDosLoading />}
+            onEmpty={() => <ToDosEmpty />}
+            onEmptySearchResults={(searchText) => <p>There are no results for {searchText}</p>}
+            totalTodos={totalTodos}
+            render={todo => (
+              <ToDoItem 
+              key={todo.text} 
+              text={todo.text}
+              completed={todo.isComplete}
+              onComplete={() => completeToDo(todo.text )}
+              onDelete={() => deleteToDo(todo.text)} 
+              />
+            )}
+            // Esto de aca arriba reemplaza la parte de abajo, arriba se usa render props, 
+            // en ccristiano es enviar funciones en lugar de variables por los props
+          >
             {/* De aca para abajo es composicion de componentes bien aplicada, app puede compartir
             el estado directamente con sus comp nietos. Si los llama el mismo, para esto
             el padre debe recibir ese prop puntual llamado children, para
             que lo que esta siendo llamado por el pueda recibir de quien engendra 
             a en este caso al padre */}
-          {error && <ToDosError error={error} />}
+
+            {/* --ESTO -- */}
+          {/* {error && <ToDosError error={error} />}
             {/* // Mostramos un mensaje de cargando, cuando la aplicación está cargando lo sdatos */}
-            {loading && <ToDosLoading />}
+            {/* {loading && <ToDosLoading />} */}
             {/* // Si terminó de cargar y no existen TODOs, se muestra un mensaje para crear el primer TODO */}
-            {(!loading && !searchedToDos.length) && <ToDosEmpty />}
-            {searchedToDos.map(todo => (
-              <ToDoItem 
-                key={todo.text} 
+            {/* {(!loading && !searchedToDos.length) && <ToDosEmpty />} */}
+            {/* {searchedToDos.map(todo => ( */}
+              {/* <ToDoItem  */}
+                {/* key={todo.text} 
                 text={todo.text}
                 completed={todo.isComplete}
                 onComplete={() => completeToDo(todo.text )}
-                onDelete={() => deleteToDo(todo.text)} />
-            ))}
+                onDelete={() => deleteToDo(todo.text)} /> */}
+            {/* ))} */}
             {!!openModal && (
               <Modal>
                 <ToDoForm />
               </Modal>
             )}
           </ToDoList>  
-          <Footer />   
+          {/* <Footer />    */}
       <CreateToDoButton />
-      
+      <ChangeAlertWithStorageListener
+        syncronize={syncronizeTodos} />
     </React.Fragment>
     // IMPORTANTISIMO envolver a todo los componente que vayan a consumir envolverlos en el producer, por amor a Odin
     // <ToDoProvider>

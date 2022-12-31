@@ -2,6 +2,8 @@ import React from 'react'
 
 export const ToDosEmpty = () => {
   return (
-    <div>Create your first todo</div>
+    <div className='LoadingTodo-container'>
+        <p className='LoadingTodo-text'>Create your first TODO</p>
+    </div>
   )
 }

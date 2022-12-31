@@ -19,3 +19,8 @@
 .ToDoSearch:focus {
     outline-color: #810CA8;
 }
+
+.ToDoSearch:disabled {
+    opacity: 35%;
+}
+

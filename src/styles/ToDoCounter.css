@@ -45,7 +45,7 @@
     text-align: center;
     width: 40px;
     font-weight: 600;
-    color: #E5B8F4;
+    color: #838383;
 }
 .TodoCounterleyenda{
     font-size: 9px;
@@ -54,4 +54,20 @@
     max-width: 960px;
     width: 100%;
     margin: 10px auto 10px;
+}
+
+.ToDoCounter--loading {
+    animation: fade 1s infinite;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0.5;
+    }
 }
