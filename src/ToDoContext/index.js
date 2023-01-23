@@ -1,3 +1,6 @@
+import React from 'react'
+import { v4 as uuidv4 } from 'uuid';
+
 import { createContext, useState } from "react";
 
 import { useLocalStorage } from './useLocalStorage';
@@ -18,7 +21,7 @@ function ToDoProvider(props) {
         loading,
         error,
         syncronizeItem: syncronizeTodos,
-    } = useLocalStorage('TODOS_V1', [])
+    } = useLocalStorage('TODOS_V2', [])
     const [searchValue, setSearchValue] = useState('');
     const [openModal, setOpenModal] = useState(false);
     
@@ -38,8 +41,8 @@ function ToDoProvider(props) {
         })
     }
 
-    const completeToDo = (text) => {
-        const todoIndex = todos.findIndex(todo => todo.text === text);
+    const completeToDo = (id) => {
+        const todoIndex = todos.findIndex(todo => todo.id === id);
         const newTodos = [...todos]; //no podemos trabajar sobre el state directamente
         newTodos[todoIndex].isComplete = !newTodos[todoIndex].isComplete; // es como un toogle
         saveTodos(newTodos);
@@ -47,19 +50,30 @@ function ToDoProvider(props) {
     
     const addToDo = (text) => {
         const newTodos = [...todos]; //no podemos trabajar sobre el state directamente
+        let id = uuidv4();
+        console.log(typeof id);
         newTodos.push({
             text,
             isComplete: false,
+            id
         })
         saveTodos(newTodos);
     }
     
-    const deleteToDo = (text) => {
-        const todoIndex = todos.findIndex(todo => todo.text === text);
+    const deleteToDo = (id) => {
+        const todoIndex = todos.findIndex(todo => todo.id === id);
         const newTodos = [...todos]; //no podemos trabajar sobre el state directamente
         console.log(newTodos[todoIndex]);
         newTodos.splice(todoIndex, 1);
         saveTodos(newTodos);
+    }
+
+    const editTodo = (id, todoUpdateInfo) => {
+        // const todoIndexToEdit = todos.findIndex(todo => todo.text === id);
+        // const newTodos = [...todos];
+        // newTodos[todoIndexToEdit] = todoUpdateInfo;
+        // saveTodos(newTodos);
+        console.log(`Editanding ${id} with ${todoUpdateInfo}`);
     }
 return (
     // Todas las propiedades que quiera compartir deben estar dentro de ese "value"
@@ -70,6 +84,7 @@ return (
         totalTodos,
         completeToDo,
         deleteToDo,
+        editTodo,
         addToDo,
         setSearchValue,
         searchedToDos,

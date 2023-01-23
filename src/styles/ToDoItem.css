@@ -47,6 +47,18 @@
     top: -24px;
     right: 0;
   }
+
+  .Icon-edit {
+    position: absolute;
+    top: -24px;
+    right: 48px;
+  }
   .Icon-delete:hover {
+    /* color: #810CA8; */
+    color: rgb(233, 6, 6);
+  }
+  
+  .Icon-edit:hover {
     color: #810CA8;
+    /* color: rgb(233, 6, 6); */
   }

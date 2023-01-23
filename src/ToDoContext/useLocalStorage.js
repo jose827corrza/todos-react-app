@@ -25,7 +25,7 @@ function useLocalStorage(itemName, initialValue) {
         } finally {
           setLoading(false);
         }
-      },13000);
+      },1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [syncronizedItem])
     

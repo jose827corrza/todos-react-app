@@ -1,0 +1,11 @@
+.NotFound {
+    height: max-content;
+    width: max-content;
+    margin-top: 4rem;
+    margin-left: 26rem;
+    display: flex;
+    justify-content: center;
+}
+.NotFound img {
+    margin: auto;
+}
