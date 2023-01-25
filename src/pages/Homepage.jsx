@@ -11,8 +11,6 @@ import { CreateToDoButton } from '../components/CreateToDoButton'
 // import { CreateToDoButton } from '../src/components/CreateToDoButton'
 import { ToDoItem } from '../components/ToDoItem'
 import { ToDoContext } from '../ToDoContext'
-import { Modal } from '../components/Modal';
-import { ToDoForm } from '../components/ToDoForm';
 import { ToDosEmpty } from '../components/ToDosEmpty';
 import { ToDosError } from '../components/ToDosError';
 import { ToDosLoading } from '../components/ToDosLoading';
@@ -28,7 +26,6 @@ function HomePage() {
     deleteToDo,
     editTodo,
     searchedToDos,
-    openModal,
     searchValue,
     setSearchValue,
     totalTodos,
@@ -62,7 +59,8 @@ function HomePage() {
             totalTodos={totalTodos}
             render={todo => (
               <ToDoItem 
-              key={todo.text} 
+              key={todo.id}
+              id={todo.id} 
               text={todo.text}
               completed={todo.isComplete}
               onComplete={() => completeToDo(todo.id )}
@@ -93,11 +91,6 @@ function HomePage() {
                 onComplete={() => completeToDo(todo.text )}
                 onDelete={() => deleteToDo(todo.text)} /> */}
             {/* ))} */}
-            {!!openModal && (
-              <Modal>
-                <ToDoForm />
-              </Modal>
-            )}
           </ToDoList>  
           {/* <Footer />    */}
       <CreateToDoButton />

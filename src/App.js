@@ -16,6 +16,7 @@ function App() {
       <HashRouter>
         <Routes>
           <Route path='/' element={ <HomePage />}/>
+          <Route path='/todo' element={ <TodoPage />}/>
           <Route path='/todo/:id' element={ <TodoPage />}/>
           <Route path='*' element={ <NotFound />}/>
         </Routes>

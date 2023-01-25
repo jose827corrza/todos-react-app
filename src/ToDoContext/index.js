@@ -68,23 +68,33 @@ function ToDoProvider(props) {
         saveTodos(newTodos);
     }
 
-    const editTodo = (id, todoUpdateInfo) => {
-        // const todoIndexToEdit = todos.findIndex(todo => todo.text === id);
-        // const newTodos = [...todos];
-        // newTodos[todoIndexToEdit] = todoUpdateInfo;
-        // saveTodos(newTodos);
-        console.log(`Editanding ${id} with ${todoUpdateInfo}`);
+    const editToDo = (id, todoUpdateInfo) => {
+        const todoIndexToEdit = todos.findIndex(todo => todo.id === id);
+        const todoToEdit = todos.find(todo => todo.id === id);
+        const newTodos = [...todos];
+        newTodos[todoIndexToEdit] = {
+            ...todoToEdit,
+            text: todoUpdateInfo,
+        };
+        saveTodos(newTodos);
+        // console.log(`Editanding ${id} with ${todoUpdateInfo}`);
+    }
+
+    const findInfo = (id) => {
+        const todo = todos.find(todo => todo.id === id);
+        return todo;
     }
 return (
     // Todas las propiedades que quiera compartir deben estar dentro de ese "value"
     <ToDoContext.Provider value={{
         loading,
         error,
+        findInfo,
         completedTodos,
         totalTodos,
         completeToDo,
         deleteToDo,
-        editTodo,
+        editToDo,
         addToDo,
         setSearchValue,
         searchedToDos,

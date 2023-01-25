@@ -12,7 +12,7 @@ const ToDoCounter = ({totalTodos, completedTodos, loading}) => {
                 <span className="TodoCounterLevel" style={{width:promedioTodos+'%'}}></span>
                 <p className="TodoCounterText">{!!loading ? "0" : promedioTodos}%</p>
             </span>
-            <p className="TodoCounterleyenda">{completedTodos} de {totalTodos}</p>
+            <p className="TodoCounterleyenda">{completedTodos} of {totalTodos}</p>
     </React.Fragment>
     // <div className='ToDoCounter'>Has Completado {completedTodos} de {totalTodos} tareas</div>
   )
