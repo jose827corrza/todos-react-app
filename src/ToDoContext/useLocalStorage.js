@@ -2,6 +2,7 @@ import {useEffect, useState } from 'react';
 
 function useLocalStorage(itemName, initialValue) {
     const [item, setItem] = useState(initialValue);
+    const [syncronizedItem, setSyncronizedItem] = useState(true);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
   
@@ -18,14 +19,15 @@ function useLocalStorage(itemName, initialValue) {
             parsedItem = JSON.parse(localStorageItem);
           }
           setItem(parsedItem);
+          setSyncronizedItem(true);
         } catch (error) {
           setError(error);
         } finally {
           setLoading(false);
         }
-      },13000);
+      },1000);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [syncronizedItem])
     
   
   
@@ -42,12 +44,18 @@ function useLocalStorage(itemName, initialValue) {
       }
       
     }
+
+    const syncronizeItem = () => {
+      setLoading(true);
+      setSyncronizedItem(false);
+    }
   
     return {
       item,
       saveItem,
       loading,
       error,
+      syncronizeItem,
     }
   }
 

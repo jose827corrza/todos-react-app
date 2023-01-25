@@ -1,16 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import '../styles/CreateToDoButton.css'
-import { ToDoContext } from '../ToDoContext'
 
 export const CreateToDoButton = () => {
-  const { openModal, setOpenModal} = useContext(ToDoContext)
-  const openModalClick = () => {
-    setOpenModal(!openModal)
-    console.log('boton');
-    console.log(openModal);
-  }
+  const navigate = useNavigate();
   return (
-    <button className='CreateTodoButton' onClick={openModalClick}>+</button>
+    <button className='CreateTodoButton' onClick={() => navigate('/todo')}>+</button>
   )
 }
